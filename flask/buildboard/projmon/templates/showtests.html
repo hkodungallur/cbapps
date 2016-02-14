@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Monitor</title>
+<link href="/static/history.css" media="screen" rel="stylesheet" />
+<script src="/static/scripts.js"></script>
+<meta content='300' http-equiv='refresh'>
+</head>
+<body>
+{% for ts in test_data.tests %}
+{% set fcount = ts.failed|length %}
+{% set rcount = ts.reg|length %}
+Suite: {{ts.suite_name}} </br>
+Total Passed: {{ts.passed|length}}</br>
+Total Failed: {{fcount}}</br>
+Total Regressions: {{rcount}}</br>
+{% if fcount != 0 %}
+Failed tests: {{ts.failed|join(', ')}}</br>
+{% endif %}
+{% if rcount != 0 %}
+Regressions: {{ts.reg|join(', ')}}</br>
+{% endif %}
+</br></br>
+{% else %}
+No tests for this build {{test_data.build_num}}
+{% endfor %}
+</body>
+</html>
+

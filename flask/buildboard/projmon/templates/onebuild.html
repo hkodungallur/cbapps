@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Monitor</title>
+<link href="/static/history.css" media="screen" rel="stylesheet" />
+<script src="/static/scripts.js"></script>
+<meta content='300' http-equiv='refresh'>
+</head>
+<body class='history'>
+<h4><a href="/watson">&lt;--watson</a></h4>
+<table border="1">
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>Build Number</td>
+    <td><a href="http://172.23.120.24/builds/latestbuilds/couchbase-server/watson/{{build_data.build_num}}">{{build_data.build_num}}</a></td>
+  </tr>
+  <tr>
+    <td>Platform Builds</td>
+    <td>
+      {% for distro in build_data.d %}
+        <a href="{{distro.url}}">{{distro.distro}}-{{distro.edition}}</a> / {{distro.result}} 
+        {% if distro.testcount is defined %}
+            [<a href="{{request.path}}/{{distro.distro}}/{{distro.edition}}/tests">total tests: {{distro.testcount}} / failed: {{distro.failedtests}}</a>]
+        {% endif %}
+        </br>
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td>Commits</td>
+    <td>
+      {% for cmt in build_data.c %}
+        <a href="{{cmt.url}}">{{cmt.sha|truncate(10, True, '')}}</a> -
+        {{cmt.repo}} -
+        {{cmt.committer.name}} -
+        {{cmt.message|truncate(80)}}
+        </br>
+      {% endfor %}
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+

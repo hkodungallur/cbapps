@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Monitor</title>
+<link href="/static/history.css" media="screen" rel="stylesheet" />
+<script src="/static/scripts.js"></script>
+<meta content='300' http-equiv='refresh'>
+</head>
+<body class='history'>
+<table border="1">
+  <tr>
+    <th>Build#</th>
+    <th>Status</th>
+    <th>Unit Tests</th>
+    <th>Commits</th>
+    <th>When (UTC)</th>
+  </tr>
+  {% for hist in history %}
+  <tr>
+    <td><a href="/{{hist.project}}/build/{{hist.b_id}}">{{hist.b_id}}</a></td>
+    <td>{{hist.status}}</td>
+    <td>Total: {{hist.total_tests}}, Failed: {{hist.total_failed}}</td>
+    <td>{{hist.commits|length}} changes</td>
+    <td>{{hist.timestamp}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</body>
+</html>
+
